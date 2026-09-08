@@ -27,6 +27,14 @@ $ pip install --upgrade pip
 $ pip install -r requirements.txt
 ```
 
+And make sure we have all of the submodules:
+
+```bash
+$ git submodule update --init
+$ cd Trio-dev
+$ git submodule update --init
+```
+
 ## Total comparisons
 
 This stage calculates the total number of function invocations that we
@@ -55,3 +63,35 @@ Note: the `other` category is from the `Profile` function where we
 didn't have any inconsistencies or fixed JS bugs. You can ignore
 `other` and count the rest to reproduce the total number of function
 invocations from the paper.
+
+## Mismatches
+
+To calculate mismatches we need to run all of the inputs against the
+JS and Swift implementations using a unit test from the TrioTests
+target in the Trio iOS app.
+
+Running this will take a while...
+
+```bash
+$ cd trio-oref-logs
+$ python run_tests_on_existing_errors.py \
+   -t iob-compare \
+   -d fixed_bug_inputs/iobInput \
+   --derived-data ./DerivedData \
+   --output-dir ./output_compare
+$ python run_tests_on_existing_errors.py \
+   -t meal-compare \
+   -d fixed_bug_inputs/mealInput \
+   --derived-data ./DerivedData \
+   --output-dir ./output_compare
+$ python run_tests_on_existing_errors.py \
+   -t autosens-compare \
+   -d fixed_bug_inputs/autosensInput \
+   --derived-data ./DerivedData \
+   --output-dir ./output_compare
+$ python run_tests_on_existing_errors.py \
+   -t determineBasal-compare \
+   -d fixed_bug_inputs/determineBasalInput \
+   --derived-data ./DerivedData \
+   --output-dir ./output_compare
+```

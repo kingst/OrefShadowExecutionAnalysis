@@ -4,3 +4,6 @@
 [submodule "Trio-dev"]
 	path = Trio-dev
 	url = git@github.com:kingst/Trio-dev.git
+[submodule "trio-oref"]
+	path = trio-oref
+	url = git@github.com:kingst/trio-oref.git
