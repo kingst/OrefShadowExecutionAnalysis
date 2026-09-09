@@ -95,3 +95,21 @@ $ python run_tests_on_existing_errors.py \
    --derived-data ./DerivedData \
    --output-dir ./output_compare
 ```
+
+These jobs will output data in the `output_compare` directory that you
+can analyze to reproduce the shadow execution mismatch table in the
+paper:
+
+```bash
+$ python analyze_compare.py output_compare/output_compare_autosens.json
+$ python analyze_compare.py output_compare/output_compare_meal.json
+$ python analyze_compare.py output_compare/output_compare_iob.json
+$ python analyze_compare.py output_compare/output_compare_determineBasal.json
+```
+
+You can use this same data to count semantically meaningful changes as well:
+
+```bash
+$ python analyze_semantic.py --autosens output_compare/output_compare_autosens.json
+$ python analyze_semantic.py --iob output_compare/output_compare_iob.json
+```
