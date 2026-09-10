@@ -16,6 +16,10 @@ To run the analysis, you need to have the logs. These logs are:
     inconsistency (they did at some point in the past, which is how
     they got logged).
 
+For now, compressed archives of these two logs are stored in Google
+Drive at: https://drive.google.com/drive/folders/1BGV-vf6dgXLTBfF8ccfqosErUc7iM_KS
+which is restricted to only being available to Thomas, Joe, and Sam.
+
 And you need to set up a python virtual environment for the driver
 that lives in `trio-oref-logs`:
 
