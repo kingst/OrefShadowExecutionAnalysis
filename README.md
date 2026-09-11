@@ -35,9 +35,11 @@ And make sure we have all of the submodules:
 
 ```bash
 $ git submodule update --init
-$ cd Trio-dev
-$ git submodule update --init
 ```
+
+The Trio iOS app lives in `Trio-dev/` as a flattened snapshot rather than a
+submodule, so it needs no separate init step. See `Trio-dev/SNAPSHOT.md` for
+its provenance and the upstream commits it was taken from.
 
 ## Total comparisons
 

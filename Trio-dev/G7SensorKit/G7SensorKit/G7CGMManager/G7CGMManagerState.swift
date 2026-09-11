@@ -1,0 +1,52 @@
+//
+//  G7CGMManagerState.swift
+//  CGMBLEKit
+//
+//  Created by Pete Schwamb on 9/26/22.
+//  Copyright © 2022 LoopKit Authors. All rights reserved.
+//
+
+import Foundation
+import LoopKit
+
+
+public struct G7CGMManagerState: RawRepresentable, Equatable {
+    public typealias RawValue = CGMManager.RawStateValue
+
+    public var sensorID: String?
+    public var activatedAt: Date?
+    public var extendedVersion: ExtendedVersionMessage?
+    public var latestReading: G7GlucoseMessage?
+    public var latestReadingTimestamp: Date?
+    public var latestConnect: Date?
+    public var uploadReadings: Bool = true
+
+    init() {
+    }
+
+    public init(rawValue: RawValue) {
+        self.sensorID = rawValue["sensorID"] as? String
+        self.activatedAt = rawValue["activatedAt"] as? Date
+        if let readingData = rawValue["latestReading"] as? Data {
+            latestReading = G7GlucoseMessage(data: readingData)
+        }
+        if let extendedVersionData = rawValue["extendedVersion"] as? Data {
+            extendedVersion = ExtendedVersionMessage(data: extendedVersionData)
+        }
+        self.latestReadingTimestamp = rawValue["latestReadingTimestamp"] as? Date
+        self.latestConnect = rawValue["latestConnect"] as? Date
+        self.uploadReadings = rawValue["uploadReadings"] as? Bool ?? true
+    }
+
+    public var rawValue: RawValue {
+        var rawValue: RawValue = [:]
+        rawValue["sensorID"] = sensorID
+        rawValue["activatedAt"] = activatedAt
+        rawValue["latestReading"] = latestReading?.data
+        rawValue["extendedVersion"] = extendedVersion?.data
+        rawValue["latestReadingTimestamp"] = latestReadingTimestamp
+        rawValue["latestConnect"] = latestConnect
+        rawValue["uploadReadings"] = uploadReadings
+        return rawValue
+    }
+}
